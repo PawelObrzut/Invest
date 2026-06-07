@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Security.Cryptography;
 
 using server.Data;
 using server.DTOs;
@@ -103,6 +104,12 @@ public class AuthService : IAuthService
 
         var jwt = GenerateJwt(user, out var expiresAt);
 
+        var refreshToken = GenerateRefreshToken();
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiresAt = DateTime.UtcNow.AddDays(30);
+
+        await _context.SaveChangesAsync();
+
         return new ServerResponse<AuthResponse>
         {
             Success = true,
@@ -111,6 +118,7 @@ public class AuthService : IAuthService
             {
                 Token = jwt,
                 ExpiresAt = expiresAt,
+                RefreshToken = refreshToken,
                 User = new UserDto
                 {
                     Id = user.Id,
@@ -169,5 +177,62 @@ public class AuthService : IAuthService
 
         return new JwtSecurityTokenHandler()
             .WriteToken(token);
+    }
+
+    private string GenerateRefreshToken()
+    {
+        return Convert.ToHexString(RandomNumberGenerator.GetBytes(254));
+    }
+
+    public async Task<ServerResponse<AuthResponse>> RefreshTokenAsync(string refreshToken)
+    {
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+
+        if (user == null)
+        {
+            return new ServerResponse<AuthResponse>
+            {
+                Success = false,
+                Message = "Invalid refresh token"
+            };
+        }
+
+        if (user.RefreshTokenExpiresAt == null ||
+            user.RefreshTokenExpiresAt < DateTime.UtcNow)
+        {
+            return new ServerResponse<AuthResponse>
+            {
+                Success = false,
+                Message = "Refresh token expired"
+            };
+        }
+
+        var newJwt = GenerateJwt(user, out var expiresAt);
+        var newRefreshToken = GenerateRefreshToken();
+
+        user.RefreshToken = newRefreshToken;
+        user.RefreshTokenExpiresAt = DateTime.UtcNow.AddDays(7);
+
+        await _context.SaveChangesAsync();
+
+        return new ServerResponse<AuthResponse>
+        {
+            Success = true,
+            Message = "Token refreshed",
+            Data = new AuthResponse
+            {
+                Token = newJwt,
+                ExpiresAt = expiresAt,
+                RefreshToken = newRefreshToken,
+                User = new UserDto
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Role = user.Role
+                }
+            }
+        };
     }
 }
