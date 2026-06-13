@@ -24,15 +24,20 @@ select {
   font: inherit;
 }
 
+/* typography */
+body {
+  font-family: "Fira Mono", monospace;
+}
+
 /* colors */
 @theme {
-  --color-blue-800: hsl(218, 53%, 10%);
-  --color-blue-600: rgb(19, 32, 52);
-  --color-blue-500: rgb(31, 47, 68);
-  --color-blue-400: rgb(48, 67, 97);
+  --color-blue-800: #0c1627;
+  --color-blue-600: #132034;
+  --color-blue-500: #1f2f44;
+  --color-blue-400: #304361;
 
-  --color-mint-500: rgb(96, 209, 172);
+  --color-mint-500: #60d1ac;
 
-  --color-grey-500: rgb(173, 184, 193);
-  --color-grey-100: rgb(226, 232, 237);
+  --color-grey-500: #adb8c1;
+  --color-grey-100: #e2e8ed;
 }
