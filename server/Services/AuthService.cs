@@ -71,6 +71,32 @@ public class AuthService : IAuthService
         };
     }
 
+    public async Task<ServerResponse<AuthResponse>> LogoutAsync(string refreshToken)
+    {
+
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+
+        if (user == null)
+        {
+            return new ServerResponse<AuthResponse>
+            {
+                Success = false,
+                Message = "Logout failed"
+            };
+        }
+
+        user.RefreshToken = null;
+        user.RefreshTokenExpiresAt = null;
+        await _context.SaveChangesAsync();
+
+        return new ServerResponse<AuthResponse>
+        {
+            Success = true,
+            Message = "Logout successful"
+        };
+    }
+
     public async Task<ServerResponse<AuthResponse>> LoginAsync(LoginRequest request)
     {
         var user = await _context.Users
