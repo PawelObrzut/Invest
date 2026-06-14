@@ -75,16 +75,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logout = () => {
-    authStorage.clear();
-
-    setState({
-      user: null,
-      token: null,
-      refreshToken: null,
-      isLoading: false,
-      isInitializing: false,
-    });
+  const logout = async () => {
+    const refreshToken = authStorage.getRefreshToken();
+    
+    try {
+      if (refreshToken) {
+        await authService.logout(refreshToken);
+      }
+    } catch (error) {
+      console.error('Logout API call failed:', error);
+    } finally {
+      authStorage.clear();
+      setState({
+        user: null,
+        token: null,
+        refreshToken: null,
+        isLoading: false,
+        isInitializing: false,
+      });
+    }
   };
 
   const value: AuthContextType = {

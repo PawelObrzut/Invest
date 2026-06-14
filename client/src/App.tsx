@@ -17,10 +17,11 @@ import Markets from "./pages/Markets";
 import Portfolio from "./pages/Portfolio";
 import useAuth from "./hooks/useAuth";
 import AuthDialog from "./components/AuthDialog";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
-  const { user } = useAuth();
-  
+  const { user, logout } = useAuth();
+
   const [isExpanded, setIsExpanded] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const avatarButtonRef = useRef<HTMLButtonElement>(null);
@@ -135,111 +136,80 @@ function App() {
       </aside>
 
       {/* {isAuthenticated && ( */}
-        <main
-          className={cn(
-            "transition-all duration-300",
-            isExpanded ? "ml-64" : "ml-18",
-          )}
-        >
-          <header className="fixed top-6 right-6 z-50 flex items-center gap-4">
-            {/* {user && ( */}
-              {(
-              <div className="flex items-center gap-3">
-                <span className="text-white text-sm font-medium">
-                  {user?.name}
-                </span>
-                <IconButton
-                  ref={avatarButtonRef}
-                  onClick={() => setIsModalOpen(true)}
+      <main
+        className={cn(
+          "transition-all duration-300",
+          isExpanded ? "ml-64" : "ml-18",
+        )}
+      >
+        <header className="fixed top-6 right-6 z-50 flex items-center gap-4">
+          {/* {user && ( */}
+            <div className="flex items-center gap-3">
+              <IconButton
+                ref={avatarButtonRef}
+                onClick={() => setIsModalOpen(true)}
+                sx={{
+                  width: 44,
+                  height: 44,
+                  "&:hover": {
+                    transform: "scale(1.1)",
+                  },
+                  transition: "all 0.3s ease",
+                }}
+              >
+                <Avatar
                   sx={{
                     width: 44,
                     height: 44,
-                    backgroundColor: "#14b8a6",
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "#0d9488",
-                      transform: "scale(1.1)",
-                    },
-                    transition: "all 0.3s ease",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
                   }}
                 >
-                  <Avatar
-                    sx={{
-                      width: 44,
-                      height: 44,
-                      backgroundColor: "#14b8a6",
-                      fontSize: "1.2rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {user?.name.charAt(0).toUpperCase()}
-                  </Avatar>
-                </IconButton>
-              </div>
-            )}
-          </header>
+                  {user?.name.charAt(0).toUpperCase()}
+                </Avatar>
+              </IconButton>
+            </div>
+          {/* )} */}
+        </header>
 
-          <Routes>
-            <Route
-              path="/dashboard"
-              element={
-                // <ProtectedRoute>
-                  <Dashboard />
-                // </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/markets"
-              element={
-                // <ProtectedRoute>
-                  <Markets />
-                // </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/portfolio"
-              element={
-                // <ProtectedRoute>
-                  <Portfolio />
-                // </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </main>
-      {/* )} */}
+        <button className="text-white border p-1 rounded-md m-2 cursor-pointer"
+          onClick={logout}
+        >
+          Logout
+        </button>
 
-      {/* {!isAuthenticated && location.pathname === "/" && ( */}
-        {/* <main className="w-full h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-white text-4xl font-bold mb-4">Welcome to nVesT+</h1>
-            <p className="text-grey-500 text-lg mb-8">Be a Trader. Sign in to get started.</p>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              ref={avatarButtonRef}
-              className="flex cursor-pointer items-center justify-center rounded-full w-20 h-20 hover:scale-110 transition-scale duration-300 mx-auto"
-              style={{ backgroundColor: "#14b8a6" }}
-            >
-              <Avatar
-                sx={{
-                  width: 60,
-                  height: 60,
-                  backgroundColor: "#14b8a6",
-                  fontSize: "2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                +
-              </Avatar>
-            </button>
-          </div>
-        </main> */}
-      {/* )} */}
+        <Routes>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/markets"
+            element={
+              // <ProtectedRoute>
+              <Markets />
+              // </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/portfolio"
+            element={
+              // <ProtectedRoute>
+              <Portfolio />
+              // </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
 
-      <AuthDialog 
+      <AuthDialog
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
-      
     </div>
   );
 }

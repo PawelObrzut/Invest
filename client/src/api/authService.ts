@@ -44,5 +44,15 @@ export const authService = {
 
     return response.data.data;
   },
-  // TODO: implement logout
+
+  logout: async (refreshToken: string): Promise<void> => {
+    const response = await apiClient.post<ServerResponse<AuthResponse>>(
+      "/api/auth/logout",
+      { refreshToken }
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || "Logout failed");
+    }
+  },
 };

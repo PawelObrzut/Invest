@@ -110,5 +110,14 @@ export const theme = createTheme({
         }),
       },
     },
+
+    MuiAvatar: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.white.main,
+          backgroundColor: theme.palette.primary.main,
+        }),
+      },
+    }
   },
 });
