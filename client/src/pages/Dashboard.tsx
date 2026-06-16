@@ -1,7 +1,9 @@
+import ProtectedRoute from "../components/ProtectedRoute"
 
 const Dashboard = () => {
   return (
     <main >
+      <ProtectedRoute>
       <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">
         {/* Total Portfolio Value Section */}
         <section className="bg-blue-600 rounded-lg p-6 border border-blue-500">
@@ -129,6 +131,7 @@ const Dashboard = () => {
           </div>
         </section>
       </div>
+      </ProtectedRoute>
     </main>
   )
 }

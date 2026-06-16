@@ -1,16 +1,17 @@
-import { Navigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import useAuth from "../hooks/useAuth";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
-}
+  fallback?: React.ReactNode;
+};
 
-export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+const ProtectedRoute = ({
+  children,
+  fallback = null,
+}: ProtectedRouteProps) => {
   const { isAuthenticated } = useAuth();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <>{children}</>;
+  return isAuthenticated ? <>{children}</> : <>{fallback}</>;
 };
+
+export default ProtectedRoute;
