@@ -1,40 +1,27 @@
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Palette {
-    white: {
+    mode: string;
+
+    primary: {
       main: string;
-    }
-    blue: {
-      800: string;
-      600: string;
-      500: string;
-      400: string;
     };
-    greyCustom: {
-      500: string;
-      100: string;
+
+    background: {
+      main: string;
+      light: string;
     };
-    red: {
-      500: string;
-    }
+
+    surface: {
+      main: string;
+      light: string;
+    };
   }
 
   interface PaletteOptions {
-    white?: {
-      main: string;
-    }
-    blue?: {
-      800: string;
-      600: string;
-      500: string;
-      400: string;
+    surface?: {
+      main?: string;
+      light?: string;
     };
-    greyCustom?: {
-      500: string;
-      100: string;
-    };
-    red?: {
-      500: string;
-    }
   }
 }
 

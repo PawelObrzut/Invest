@@ -23,7 +23,14 @@ const AuthDialog = ({ isOpen, onClose }: Props) => {
       open={isOpen} 
       onClose={onClose} 
       fullWidth 
-      maxWidth="xs"
+      maxWidth="sm"
+      sx={{
+        "& .MuiDialog-paper": {
+          bgcolor: "background.default",
+            border: 1,
+            borderColor: "divider",
+        }
+      }}
       >
       <DialogTitle>
         {mode === "login" ? "Login" : "Create Account"}

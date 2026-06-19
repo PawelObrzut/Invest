@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-
+import React from "react";
+import {
+  Box,
+  Typography,
+  Stack,
+  IconButton,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import {
   LayoutDashboard,
   ChartPie,
@@ -8,7 +14,6 @@ import {
   SquareChevronLeft,
   DollarSign,
 } from "lucide-react";
-import { cn } from "../utilities/helpers";
 import { NavLink } from "react-router-dom";
 
 const NAV_ITEMS = [
@@ -35,85 +40,152 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ isExpanded, setIsExpanded }: SidebarProps) => {
-
-  const navItemClass = ({ isActive }: { isActive: boolean }) =>
-    cn(
-      "w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
-      isActive
-        ? "text-mint-500 bg-blue-500 border-l-4 border-mint-500"
-        : "text-white hover:bg-blue-500",
-    );
+  const theme = useTheme();
 
   return (
-    <aside
-      className={cn(
-        isExpanded ? "w-64" : "w-18",
-        "fixed left-0 top-0 flex flex-col h-screen bg-blue-600 border-r border-blue-400 transition-[width] duration-300",
-      )}
+    <Box
+      component="aside"
+      sx={{
+        width: isExpanded ? 260 : 72,
+        height: "100vh",
+        position: "fixed",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: "background.paper",
+        borderRight: 1,
+        borderColor: "divider",
+        transition: "width 0.3s ease",
+      }}
     >
-      <div className="flex h-26 border-b border-blue-400 pt-10 px-6">
-        <DollarSign
-          className="text-mint-500 scale-150 font-bold shrink-0"
-          strokeWidth={3}
-        />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          height: 72,
+          px: 2,
+          pt: 5,
+          pb: 3,
+          borderBottom: 1,
+          borderColor: "divider",
+        }}
+      >
+        <DollarSign 
+          color={theme.palette.primary.main} 
+          size={40}
+          className="shrink-0 relative -top-2"
+          />
+
         {isExpanded && (
-          <div className="transition-all duration-300 overflow-hidden">
-            <h1
-              className={cn(
-                "text-mint-500 text-2xl font-bold whitespace-nowrap transition-opacity duration-200",
-                isExpanded ? "opacity-100" : "opacity-0",
-              )}
+          <Box sx={{ overflow: "hidden" }}>
+            <Typography
+              variant="h5"
+              sx={{
+                color: "primary.main",
+                fontWeight: 600,
+                lineHeight: 1,
+              }}
             >
               nVesT+
-            </h1>
-            <span
-              className={cn(
-                "text-xs text-grey-500 whitespace-nowrap relative -top-3 transition-opacity duration-200",
-                isExpanded ? "opacity-100" : "opacity-0",
-              )}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              sx={{
+                color: "text.secondary",
+                position: "relative",
+                top: -6,
+              }}
             >
               Be a Trader.
-            </span>
-          </div>
+            </Typography>
+          </Box>
         )}
-      </div>
+      </Box>
 
-      <nav className="text-white flex-1 px-2 py-4 overflow-y-auto">
-        <ul className="space-y-1">
+      <Box sx={{ flex: 1, px: 1, py: 2 }}>
+        <Stack spacing={0.5}>
           {NAV_ITEMS.map(({ label, path, icon: Icon }) => (
-            <li key={path}>
-              <NavLink to={path} className={navItemClass}>
-                <span className="w-6 flex justify-center shrink-0">
-                  <Icon />
-                </span>
-
-                <span
-                  className={cn(
-                    "overflow-hidden whitespace-nowrap transition-all duration-300",
-                    isExpanded ? "max-w-30 opacity-100" : "max-w-0 opacity-0",
-                  )}
+            <NavLink
+              key={path}
+              to={path}
+              style={{ textDecoration: "none" }}
+            >
+              {({ isActive }) => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    px: 2,
+                    py: 1.5,
+                    borderRadius: 2,
+                    color: isActive ? "primary.main" : "text.primary",
+                    backgroundColor: isActive
+                      ? "action.selected"
+                      : "transparent",
+                    borderLeft: isActive
+                      ? "4px solid"
+                      : "0",
+                    borderColor: isActive
+                      ? "primary.main"
+                      : "transparent",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      backgroundColor: "action.hover",
+                    },
+                  }}
                 >
-                  {label}
-                </span>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
+                  <Box
+                    sx={{
+                      width: 24,
+                      height: 24,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon size={20} />
+                  </Box>
 
-      <div className="border-t border-blue-400 p-4">
-        <button
+                  {isExpanded && (
+                    <Typography variant="body1">
+                      {label}
+                    </Typography>
+                  )}
+                </Box>
+              )}
+            </NavLink>
+          ))}
+        </Stack>
+      </Box>
+
+      <Box
+        sx={{
+          borderTop: 1,
+          borderColor: "divider",
+          p: 1.5,
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <IconButton
           onClick={() => setIsExpanded(!isExpanded)}
-          className={cn(
-            "ml-auto mr-2 flex justify-end items-center rounded-lg bg-blue-600 text-grey-500 hover:text-mint-500 transition-colors duration-200",
-          )}
+          sx={{
+            color: "text.secondary",
+            "&:hover": {
+              color: "primary.main",
+            },
+          }}
         >
-          <span className="text-lg">
-            {isExpanded ? <SquareChevronLeft /> : <SquareChevronRight />}
-          </span>
-        </button>
-      </div>
-    </aside>
+          {isExpanded ? (
+            <SquareChevronLeft />
+          ) : (
+            <SquareChevronRight />
+          )}
+        </IconButton>
+      </Box>
+    </Box>
   );
 };
 
