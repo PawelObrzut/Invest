@@ -6,9 +6,9 @@ import RegisterForm from "./RegisterForm";
 type Mode = "login" | "register";
 
 type Props = {
-  isOpen: boolean,
-  onClose: () => void,
-}
+  isOpen: boolean;
+  onClose: () => void;
+};
 
 const AuthDialog = ({ isOpen, onClose }: Props) => {
   const [mode, setMode] = useState<Mode>("login");
@@ -19,38 +19,40 @@ const AuthDialog = ({ isOpen, onClose }: Props) => {
   };
 
   return (
-    <Dialog 
-      open={isOpen} 
-      onClose={onClose} 
-      fullWidth 
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      fullWidth
       maxWidth="sm"
       sx={{
         "& .MuiDialog-paper": {
           bgcolor: "background.default",
-            border: 1,
-            borderColor: "divider",
-        }
+          border: 1,
+          borderColor: "divider",
+        },
       }}
-      >
-      <DialogTitle>
-        {mode === "login" ? "Login" : "Create Account"}
-      </DialogTitle>
+    >
+      <div data-testid="auth-dialog">
+        <DialogTitle>
+          {mode === "login" ? "Login" : "Create Account"}
+        </DialogTitle>
 
-      <DialogContent>
-        {mode === 'login' ? (
-          <LoginForm 
-            onSwitch={() => setMode("register")}
-            onSuccess={handleSuccess}
-          />
-        ) : (
-          <RegisterForm 
-            onSwitch={() => setMode("login")}
-            onSuccess={handleSuccess}
-          />
-        )}
-      </DialogContent>
+        <DialogContent>
+          {mode === "login" ? (
+            <LoginForm
+              onSwitch={() => setMode("register")}
+              onSuccess={handleSuccess}
+            />
+          ) : (
+            <RegisterForm
+              onSwitch={() => setMode("login")}
+              onSuccess={handleSuccess}
+            />
+          )}
+        </DialogContent>
+      </div>
     </Dialog>
-  )
-}
+  );
+};
 
 export default AuthDialog;

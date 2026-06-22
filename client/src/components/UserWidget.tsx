@@ -28,7 +28,7 @@ const UserWidget = ({ user, logout, setIsModalOpen }: Props) => {
       {user ? (
         <>
           <Tooltip title="Account settings" placement="left-start">
-            <IconButton>
+            <IconButton data-testid="user-settings-button">
               <Badge
                 overlap="circular"
                 anchorOrigin={{
@@ -54,7 +54,7 @@ const UserWidget = ({ user, logout, setIsModalOpen }: Props) => {
           </Tooltip>
 
           <Tooltip title="Logout" placement="left-start">
-            <IconButton onClick={logout}>
+            <IconButton onClick={logout} data-testid="logout-button">
               <LogOut />
             </IconButton>
           </Tooltip>
@@ -70,7 +70,10 @@ const UserWidget = ({ user, logout, setIsModalOpen }: Props) => {
           </Tooltip>
 
           <Tooltip title="Login" placement="left-start">
-            <IconButton onClick={() => setIsModalOpen(true)}>
+            <IconButton
+              onClick={() => setIsModalOpen(true)}
+              data-testid="open-login-dialog"
+            >
               <LogIn />
             </IconButton>
           </Tooltip>

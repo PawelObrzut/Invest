@@ -95,6 +95,11 @@ const LoginForm = ({ onSwitch, onSuccess }: Props) => {
           error={touched.email && !!errors.email}
           helperText={touched.email && errors.email}
           disabled={isLoading}
+          slotProps={{
+            htmlInput: {
+              "data-testid": "login-email",
+            },
+          }}
         />
 
         <TextField
@@ -121,12 +126,15 @@ const LoginForm = ({ onSwitch, onSuccess }: Props) => {
                     }
                     tabIndex={-1}
                     disabled={isLoading}
-                    sx={{ color: 'primary.main' }}
+                    sx={{ color: "primary.main" }}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </IconButton>
                 </InputAdornment>
               ),
+            },
+            htmlInput: {
+              "data-testid": "login-password",
             },
           }}
         />
@@ -136,6 +144,7 @@ const LoginForm = ({ onSwitch, onSuccess }: Props) => {
           variant="contained"
           type="submit"
           disabled={isLoading}
+          data-testid="login-submit"
         >
           {isLoading ? "Logging in..." : "Login"}
         </Button>
@@ -145,6 +154,7 @@ const LoginForm = ({ onSwitch, onSuccess }: Props) => {
           variant="text"
           onClick={onSwitch}
           disabled={isLoading}
+          data-testid="login-switch-to-register"
         >
           Don't have an account? Create one
         </Button>

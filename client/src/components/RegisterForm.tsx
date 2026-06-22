@@ -1,4 +1,10 @@
-import { Box, Button, IconButton, InputAdornment, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import {
@@ -146,6 +152,11 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
           error={touched.name && !!errors.name}
           helperText={touched.name && errors.name}
           disabled={isLoading}
+          slotProps={{
+            htmlInput: {
+              "data-testid": "register-name",
+            },
+          }}
         />
         <TextField
           fullWidth
@@ -159,6 +170,11 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
           error={touched.email && !!errors.email}
           helperText={touched.email && errors.email}
           disabled={isLoading}
+          slotProps={{
+            htmlInput: {
+              "data-testid": "register-email",
+            },
+          }}
         />
         <TextField
           fullWidth
@@ -184,12 +200,15 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
                     }
                     tabIndex={-1}
                     disabled={isLoading}
-                    sx={{ color: 'primary.main' }}
+                    sx={{ color: "primary.main" }}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </IconButton>
                 </InputAdornment>
               ),
+            },
+            htmlInput: {
+              "data-testid": "register-password",
             },
           }}
         />
@@ -217,7 +236,7 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
                     }
                     tabIndex={-1}
                     disabled={isLoading}
-                    sx={{ color: 'primary.main' }}
+                    sx={{ color: "primary.main" }}
                   >
                     {showConfirmPassword ? (
                       <EyeOff size={18} />
@@ -228,6 +247,9 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
                 </InputAdornment>
               ),
             },
+            htmlInput: {
+              "data-testid": "register-confirm-password",
+            },
           }}
         />
         <Button
@@ -235,6 +257,7 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
           variant="contained"
           type="submit"
           disabled={isLoading}
+          data-testid="register-submit"
         >
           {isLoading ? "Creating account..." : "Create Account"}
         </Button>
@@ -244,6 +267,7 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
           variant="text"
           onClick={onSwitch}
           disabled={isLoading}
+          data-testid="register-switch-to-login"
         >
           Already have an account? Login
         </Button>
