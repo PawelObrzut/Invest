@@ -51,7 +51,7 @@ builder.Services
         };
     });
     
-builder.Services.AddScoped<IMarketService, MarketService>();
+builder.Services.AddScoped<IStockService, StockService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

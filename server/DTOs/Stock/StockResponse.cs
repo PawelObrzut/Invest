@@ -1,4 +1,4 @@
-public class MarketResponse
+public class StockResponse
 {
     public string Symbol { get; set; } = string.Empty;
     public string CompanyName { get; set; } = string.Empty;

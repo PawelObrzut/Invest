@@ -1,0 +1,738 @@
+[
+  {
+    "Symbol": "AAPL",
+    "Period": "Day",
+    "History": [
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 177.10,
+        "Change": -1.35,
+        "ChangePercent": -0.76,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.00,
+        "Change": 0.90,
+        "ChangePercent": 0.51,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.35,
+        "Change": 0.35,
+        "ChangePercent": 0.20,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.75,
+        "Change": 0.40,
+        "ChangePercent": 0.22,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.45,
+        "Change": -0.30,
+        "ChangePercent": -0.17,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "AAPL",
+    "Period": "Week",
+    "History": [
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 175.50,
+        "Change": -0.65,
+        "ChangePercent": -0.37,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 176.80,
+        "Change": 1.30,
+        "ChangePercent": 0.74,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 177.95,
+        "Change": 1.15,
+        "ChangePercent": 0.65,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.65,
+        "Change": 0.70,
+        "ChangePercent": 0.39,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.45,
+        "Change": -0.20,
+        "ChangePercent": -0.11,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "AAPL",
+    "Period": "Month",
+    "History": [
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 165.20,
+        "Change": -0.95,
+        "ChangePercent": -0.57,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 169.10,
+        "Change": 3.90,
+        "ChangePercent": 2.36,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 172.30,
+        "Change": 3.20,
+        "ChangePercent": 1.89,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 174.90,
+        "Change": 2.60,
+        "ChangePercent": 1.51,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.45,
+        "Change": 3.55,
+        "ChangePercent": 2.03,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "AAPL",
+    "Period": "SixMonths",
+    "History": [
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 142.90,
+        "Change": -0.85,
+        "ChangePercent": -0.59,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 148.50,
+        "Change": 5.60,
+        "ChangePercent": 3.92,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 154.20,
+        "Change": 5.70,
+        "ChangePercent": 3.84,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 167.30,
+        "Change": 13.10,
+        "ChangePercent": 8.49,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "AAPL",
+        "CompanyName": "Apple Inc.",
+        "Price": 178.45,
+        "Change": 11.15,
+        "ChangePercent": 6.67,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "TSLA",
+    "Period": "Day",
+    "History": [
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 240.10,
+        "Change": -1.80,
+        "ChangePercent": -0.74,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 243.75,
+        "Change": 3.65,
+        "ChangePercent": 1.52,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 246.50,
+        "Change": 2.75,
+        "ChangePercent": 1.13,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 248.90,
+        "Change": 2.40,
+        "ChangePercent": 0.98,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 248.92,
+        "Change": 0.02,
+        "ChangePercent": 0.01,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "TSLA",
+    "Period": "Week",
+    "History": [
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 232.80,
+        "Change": 1.10,
+        "ChangePercent": 0.47,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 236.25,
+        "Change": 3.45,
+        "ChangePercent": 1.48,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 241.50,
+        "Change": 5.25,
+        "ChangePercent": 2.22,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 247.80,
+        "Change": 6.30,
+        "ChangePercent": 2.61,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 248.92,
+        "Change": 1.12,
+        "ChangePercent": 0.45,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "TSLA",
+    "Period": "Month",
+    "History": [
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 196.75,
+        "Change": -1.10,
+        "ChangePercent": -0.56,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 214.20,
+        "Change": 17.45,
+        "ChangePercent": 8.87,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 227.35,
+        "Change": 13.15,
+        "ChangePercent": 6.14,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 241.80,
+        "Change": 14.45,
+        "ChangePercent": 6.35,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 248.92,
+        "Change": 7.12,
+        "ChangePercent": 2.95,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "TSLA",
+    "Period": "SixMonths",
+    "History": [
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 178.90,
+        "Change": -2.20,
+        "ChangePercent": -1.22,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 188.10,
+        "Change": 9.20,
+        "ChangePercent": 5.14,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 205.40,
+        "Change": 17.30,
+        "ChangePercent": 9.20,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 231.70,
+        "Change": 26.30,
+        "ChangePercent": 12.81,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "TSLA",
+        "CompanyName": "Tesla Inc.",
+        "Price": 248.92,
+        "Change": 17.22,
+        "ChangePercent": 7.43,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "NVDA",
+    "Period": "Day",
+    "History": [
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 882.20,
+        "Change": -3.45,
+        "ChangePercent": -0.39,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 887.85,
+        "Change": 5.65,
+        "ChangePercent": 0.64,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 891.75,
+        "Change": 3.90,
+        "ChangePercent": 0.44,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 895.10,
+        "Change": 3.35,
+        "ChangePercent": 0.38,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 895.32,
+        "Change": 0.22,
+        "ChangePercent": 0.02,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "NVDA",
+    "Period": "Week",
+    "History": [
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 869.80,
+        "Change": -2.15,
+        "ChangePercent": -0.25,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 876.45,
+        "Change": 6.65,
+        "ChangePercent": 0.76,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 886.50,
+        "Change": 10.05,
+        "ChangePercent": 1.15,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 892.75,
+        "Change": 6.25,
+        "ChangePercent": 0.70,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 895.32,
+        "Change": 2.57,
+        "ChangePercent": 0.29,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "NVDA",
+    "Period": "Month",
+    "History": [
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 720.50,
+        "Change": -7.90,
+        "ChangePercent": -1.08,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 755.30,
+        "Change": 34.80,
+        "ChangePercent": 4.83,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 815.25,
+        "Change": 59.95,
+        "ChangePercent": 7.94,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 869.10,
+        "Change": 53.85,
+        "ChangePercent": 6.60,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 895.32,
+        "Change": 26.22,
+        "ChangePercent": 3.02,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "NVDA",
+    "Period": "SixMonths",
+    "History": [
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 610.25,
+        "Change": -10.15,
+        "ChangePercent": -1.64,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 680.50,
+        "Change": 70.25,
+        "ChangePercent": 11.52,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 745.75,
+        "Change": 65.25,
+        "ChangePercent": 9.59,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 820.00,
+        "Change": 74.25,
+        "ChangePercent": 9.96,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "NVDA",
+        "CompanyName": "NVIDIA Corp.",
+        "Price": 895.32,
+        "Change": 75.32,
+        "ChangePercent": 9.18,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "MSFT",
+    "Period": "Day",
+    "History": [
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 408.90,
+        "Change": -2.35,
+        "ChangePercent": -0.57,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 410.25,
+        "Change": 1.35,
+        "ChangePercent": 0.33,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 411.80,
+        "Change": 1.55,
+        "ChangePercent": 0.38,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 412.50,
+        "Change": 0.70,
+        "ChangePercent": 0.17,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 412.87,
+        "Change": 0.37,
+        "ChangePercent": 0.09,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "MSFT",
+    "Period": "Week",
+    "History": [
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 401.00,
+        "Change": -1.10,
+        "ChangePercent": -0.27,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 405.75,
+        "Change": 4.75,
+        "ChangePercent": 1.19,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 409.20,
+        "Change": 3.45,
+        "ChangePercent": 0.85,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 412.10,
+        "Change": 2.90,
+        "ChangePercent": 0.71,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 412.87,
+        "Change": 0.77,
+        "ChangePercent": 0.19,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "MSFT",
+    "Period": "Month",
+    "History": [
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 380.00,
+        "Change": -1.20,
+        "ChangePercent": -0.31,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 389.25,
+        "Change": 9.25,
+        "ChangePercent": 2.43,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 398.60,
+        "Change": 9.35,
+        "ChangePercent": 2.40,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 405.90,
+        "Change": 7.30,
+        "ChangePercent": 1.83,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 412.87,
+        "Change": 6.97,
+        "ChangePercent": 1.72,
+        "Currency": "USD"
+      }
+    ]
+  },
+  {
+    "Symbol": "MSFT",
+    "Period": "SixMonths",
+    "History": [
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 345.10,
+        "Change": -1.70,
+        "ChangePercent": -0.49,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 360.90,
+        "Change": 15.80,
+        "ChangePercent": 4.58,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 375.40,
+        "Change": 14.50,
+        "ChangePercent": 4.02,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 392.60,
+        "Change": 17.20,
+        "ChangePercent": 4.58,
+        "Currency": "USD"
+      },
+      {
+        "Symbol": "MSFT",
+        "CompanyName": "Microsoft",
+        "Price": 412.87,
+        "Change": 20.27,
+        "ChangePercent": 5.16,
+        "Currency": "USD"
+      }
+    ]
+  }
+]
