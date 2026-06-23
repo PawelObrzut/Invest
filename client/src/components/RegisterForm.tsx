@@ -7,6 +7,8 @@ import {
 } from "@mui/material";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
 import {
   validateEmail,
   validatePassword,
@@ -20,7 +22,7 @@ import type { AuthFormValues } from "../types/auth.type";
 type Props = {
   form: UseFormReturn<AuthFormValues>;
   onSwitch: () => void;
-  onSuccess?: () => void;
+  onSuccess?: (message: string, email: string)  => void;
 };
 
 const RegisterForm = ({ form, onSwitch, onSuccess }: Props) => {
@@ -39,10 +41,25 @@ const RegisterForm = ({ form, onSwitch, onSuccess }: Props) => {
 
   const onSubmit = async (data: AuthFormValues) => {
     try {
-      await registerUser(data.name, data.email, data.password);
-      onSuccess?.();
+      const response = await registerUser(
+        data.name,
+        data.email,
+        data.password
+      );
+
+      onSuccess?.(response.message, data.email);
+      toast.success(response.message);
     } catch (error) {
       console.error("Registration failed:", error);
+
+      const errorMessage =
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || error.message
+          : error instanceof Error
+          ? error.message
+          : "Registration failed. Please try again.";
+
+      toast.error(errorMessage);
     }
   };
 

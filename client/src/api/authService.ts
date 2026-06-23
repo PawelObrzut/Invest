@@ -1,5 +1,6 @@
+import axios from "axios";
 import apiClient from "./apiClient";
-import type { AuthResponse, LoginRequest, RefreshTokenRequest, RegisterRequest, ServerResponse } from "../types/auth.type";
+import type { AuthResponse, LoginRequest, RefreshTokenRequest, RegisterRequest, ServerResponse, User } from "../types/auth.type";
 
 export const authService = {
   login: async (email: string, password: string): Promise<AuthResponse> => {
@@ -19,17 +20,25 @@ export const authService = {
     name: string,
     email: string,
     password: string
-  ): Promise<AuthResponse> => {
-    const response = await apiClient.post<ServerResponse<AuthResponse>>(
-      "/api/auth/register",
-      { name, email, password } as RegisterRequest
-    );
+  ): Promise<ServerResponse<User>> => {
+    try {
+      const response = await apiClient.post<ServerResponse<User>>(
+        "/api/auth/register",
+        { name, email, password } as RegisterRequest
+      );
 
-    if (!response.data.success) {
-      throw new Error(response.data.message || "Registration failed");
+      if (!response.data.success) {
+        throw new Error(response.data.message || "Registration failed");
+      }
+
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const backendMessage = error.response?.data?.message;
+        throw new Error(backendMessage || error.message || "Registration failed");
+      }
+      throw error;
     }
-
-    return response.data.data;
   },
 
   refreshToken: async (refreshToken: string): Promise<AuthResponse> => {

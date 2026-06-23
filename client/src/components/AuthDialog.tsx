@@ -1,7 +1,6 @@
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import type { UseFormReturn } from "react-hook-form";
 import type { AuthFormValues } from "../types/auth.type";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
@@ -9,9 +8,6 @@ import RegisterForm from "./RegisterForm";
 type Mode = "login" | "register";
 
 type Props = {
-  form: UseFormReturn<AuthFormValues>;
-  onSwitch: () => void;
-  onSuccess: () => void;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -28,10 +24,18 @@ const AuthDialog = ({ isOpen, onClose }: Props) => {
     },
   });
 
-  const handleSuccess = () => {
+  const handleRegisterSuccess = (
+    email: string,
+  ) => {
+    setMode("login");
+    form.reset({
+      email,
+    });
+  };
+
+  const handleLoginSuccess = () => {
     form.reset();
     onClose();
-    setMode("login");
   };
 
   const switchToRegister = () => {
@@ -68,13 +72,13 @@ const AuthDialog = ({ isOpen, onClose }: Props) => {
             <LoginForm
               form={form}
               onSwitch={switchToRegister}
-              onSuccess={handleSuccess}
+              onSuccess={handleLoginSuccess}
             />
           ) : (
             <RegisterForm
               form={form}
               onSwitch={switchToLogin}
-              onSuccess={handleSuccess}
+              onSuccess={handleRegisterSuccess}
             />
           )}
         </DialogContent>

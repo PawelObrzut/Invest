@@ -2,17 +2,18 @@ import { createContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
 import { authService } from "../api/authService";
-import authStorage from "../utilities/authStorage";
+import authStorage from "../utils/authStorage";
 
 import type {
   AuthContextType,
   AuthResponse,
   AuthState,
+  ServerResponse,
+  User,
 } from "../types/auth.type";
 
-
 export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -59,17 +60,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setState((prev) => ({ ...prev, isLoading: false }));
     }
   };
-
   const register = async (
     name: string,
     email: string,
-    password: string
-  ): Promise<void> => {
+    password: string,
+  ): Promise<ServerResponse<User>> => {
     setState((prev) => ({ ...prev, isLoading: true }));
 
     try {
       const response = await authService.register(name, email, password);
-      setAuthResponse(response);
+      return response;
     } finally {
       setState((prev) => ({ ...prev, isLoading: false }));
     }
@@ -77,13 +77,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     const refreshToken = authStorage.getRefreshToken();
-    
+
     try {
       if (refreshToken) {
         await authService.logout(refreshToken);
       }
     } catch (error) {
-      console.error('Logout API call failed:', error);
+      console.error("Logout API call failed:", error);
     } finally {
       authStorage.clear();
       setState({
@@ -108,9 +108,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuthResponse,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { cn } from "./utilities/helpers";
+import { ToastContainer } from "react-toastify";
+import { cn } from "./utils/helpers";
 import Sidebar from "./components/Sidebar";
 
 import Dashboard from "./pages/Dashboard";
@@ -9,6 +10,7 @@ import Portfolio from "./pages/Portfolio";
 import useAuth from "./hooks/useAuth";
 import AuthDialog from "./components/AuthDialog";
 import UserWidget from "./components/UserWidget";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const { user, logout } = useAuth();
@@ -35,6 +37,7 @@ function App() {
       </main>
 
       <AuthDialog isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

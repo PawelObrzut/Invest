@@ -27,7 +27,7 @@ export type AuthContextType = {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<ServerResponse<User>>;
   logout: () => void;
   setAuthResponse: (response: AuthResponse) => void;
 };
@@ -58,4 +58,5 @@ export type ServerResponse<T> = {
   success: boolean;
   message: string;
   data: T;
+  errors: string[];
 };
