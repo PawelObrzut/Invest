@@ -32,6 +32,13 @@ export type AuthContextType = {
   setAuthResponse: (response: AuthResponse) => void;
 };
 
+export type AuthFormValues = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export type LoginRequest = {
   email: string;
   password: string;

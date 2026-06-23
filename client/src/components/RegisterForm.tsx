@@ -12,118 +12,34 @@ import {
   validatePassword,
   validatePasswordMatch,
 } from "../utils/formValidation";
+
 import useAuth from "../hooks/useAuth";
+import type { UseFormReturn } from "react-hook-form";
+import type { AuthFormValues } from "../types/auth.type";
 
 type Props = {
+  form: UseFormReturn<AuthFormValues>;
   onSwitch: () => void;
   onSuccess?: () => void;
 };
 
-const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
-  const { register, isLoading } = useAuth();
+const RegisterForm = ({ form, onSwitch, onSuccess }: Props) => {
+  const { register: registerUser, isLoading } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = form;
+
+  const password = watch("password");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [touched, setTouched] = useState({
-    name: false,
-    email: false,
-    password: false,
-    confirmPassword: false,
-  });
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
 
-  const validateForm = () => {
-    const nameError = !formData.name.trim() ? "Name is required" : "";
-    const emailValidation = validateEmail(formData.email);
-    const passwordValidation = validatePassword(formData.password);
-    const confirmPasswordValidation = validatePasswordMatch(
-      formData.password,
-      formData.confirmPassword,
-    );
-
-    setErrors({
-      name: nameError,
-      email: emailValidation.error || "",
-      password: passwordValidation.error || "",
-      confirmPassword: confirmPasswordValidation.error || "",
-    });
-
-    return (
-      !nameError &&
-      emailValidation.isValid &&
-      passwordValidation.isValid &&
-      confirmPasswordValidation.isValid
-    );
-  };
-
-  const handleBlur = (
-    field: "name" | "email" | "password" | "confirmPassword",
-  ) => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-
-    if (field === "name") {
-      const error = !formData.name.trim() ? "Name is required" : "";
-      setErrors((prev) => ({ ...prev, name: error }));
-    } else if (field === "email") {
-      const validation = validateEmail(formData.email);
-      setErrors((prev) => ({ ...prev, email: validation.error || "" }));
-    } else if (field === "password") {
-      const validation = validatePassword(formData.password);
-      setErrors((prev) => ({ ...prev, password: validation.error || "" }));
-    } else if (field === "confirmPassword") {
-      const validation = validatePasswordMatch(
-        formData.password,
-        formData.confirmPassword,
-      );
-      setErrors((prev) => ({
-        ...prev,
-        confirmPassword: validation.error || "",
-      }));
-    }
-  };
-
-  const handleChange = (
-    field: "name" | "email" | "password" | "confirmPassword",
-    value: string,
-  ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-
-    if (touched[field]) {
-      if (field === "name") {
-        const error = !value.trim() ? "Name is required" : "";
-        setErrors((prev) => ({ ...prev, name: error }));
-      } else if (field === "email") {
-        const validation = validateEmail(value);
-        setErrors((prev) => ({ ...prev, email: validation.error || "" }));
-      } else if (field === "password") {
-        const validation = validatePassword(value);
-        setErrors((prev) => ({ ...prev, password: validation.error || "" }));
-      } else if (field === "confirmPassword") {
-        const validation = validatePasswordMatch(value, formData.password);
-        setErrors((prev) => ({
-          ...prev,
-          confirmPassword: validation.error || "",
-        }));
-      }
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
+  const onSubmit = async (data: AuthFormValues) => {
     try {
-      await register(formData.name, formData.email, formData.password);
+      await registerUser(data.name, data.email, data.password);
       onSuccess?.();
     } catch (error) {
       console.error("Registration failed:", error);
@@ -131,7 +47,7 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box
         sx={{
           mt: 1,
@@ -146,12 +62,12 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
           label="Name"
           variant="outlined"
           size="small"
-          value={formData.name}
-          onChange={(e) => handleChange("name", e.target.value)}
-          onBlur={() => handleBlur("name")}
-          error={touched.name && !!errors.name}
-          helperText={touched.name && errors.name}
           disabled={isLoading}
+          error={!!errors.name}
+          helperText={errors.name?.message}
+          {...register("name", {
+            required: "Name is required",
+          })}
           slotProps={{
             htmlInput: {
               "data-testid": "register-name",
@@ -162,14 +78,14 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
           fullWidth
           label="Email"
           type="email"
-          variant="outlined"
           size="small"
-          value={formData.email}
-          onChange={(e) => handleChange("email", e.target.value)}
-          onBlur={() => handleBlur("email")}
-          error={touched.email && !!errors.email}
-          helperText={touched.email && errors.email}
           disabled={isLoading}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          {...register("email", {
+            required: "Email is required",
+            validate: (value) => validateEmail(value).error || true,
+          })}
           slotProps={{
             htmlInput: {
               "data-testid": "register-email",
@@ -179,28 +95,24 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
         <TextField
           fullWidth
           label="Password"
-          variant="outlined"
-          size="small"
           type={showPassword ? "text" : "password"}
-          value={formData.password}
-          onChange={(e) => handleChange("password", e.target.value)}
-          onBlur={() => handleBlur("password")}
-          error={touched.password && !!errors.password}
-          helperText={touched.password && errors.password}
+          size="small"
           disabled={isLoading}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          {...register("password", {
+            required: "Password is required",
+            validate: (value) => validatePassword(value).error || true,
+          })}
           slotProps={{
             input: {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     edge="end"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
                     tabIndex={-1}
                     disabled={isLoading}
-                    sx={{ color: "primary.main" }}
+                    onClick={() => setShowPassword((prev) => !prev)}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </IconButton>
@@ -215,33 +127,32 @@ const RegisterForm = ({ onSwitch, onSuccess }: Props) => {
         <TextField
           fullWidth
           label="Confirm Password"
-          variant="outlined"
-          size="small"
           type={showConfirmPassword ? "text" : "password"}
-          value={formData.confirmPassword}
-          onChange={(e) => handleChange("confirmPassword", e.target.value)}
-          onBlur={() => handleBlur("confirmPassword")}
-          error={touched.confirmPassword && !!errors.confirmPassword}
-          helperText={touched.confirmPassword && errors.confirmPassword}
+          size="small"
           disabled={isLoading}
+          error={!!errors.confirmPassword}
+          helperText={errors.confirmPassword?.message}
+          {...register("confirmPassword", {
+            required: "Please confirm your password",
+            validate: (value) =>
+              validatePasswordMatch(password, value).error || true,
+          })}
           slotProps={{
             input: {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     edge="end"
-                    onClick={() => setShowConfirmPassword((prev) => !prev)}
-                    aria-label={
-                      showConfirmPassword ? "Hide password" : "Show password"
-                    }
                     tabIndex={-1}
                     disabled={isLoading}
-                    sx={{ color: "primary.main" }}
+                    onClick={() =>
+                      setShowConfirmPassword((prev) => !prev)
+                    }
                   >
                     {showConfirmPassword ? (
-                      <EyeOff size={18} />
+                      <EyeOff size={20} />
                     ) : (
-                      <Eye size={18} />
+                      <Eye size={20} />
                     )}
                   </IconButton>
                 </InputAdornment>

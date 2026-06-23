@@ -7,65 +7,35 @@ import {
 } from "@mui/material";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { validateEmail, validatePassword } from "../utils/formValidation";
+import type { UseFormReturn } from "react-hook-form";
+
 import useAuth from "../hooks/useAuth";
+import type { AuthFormValues } from "../types/auth.type";
+import {
+  validateEmail,
+  validatePassword,
+} from "../utils/formValidation";
 
 type Props = {
+  form: UseFormReturn<AuthFormValues>;
   onSwitch: () => void;
   onSuccess?: () => void;
 };
 
-const LoginForm = ({ onSwitch, onSuccess }: Props) => {
+const LoginForm = ({ form, onSwitch, onSuccess }: Props) => {
   const { login, isLoading } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [touched, setTouched] = useState({ email: false, password: false });
-  const [errors, setErrors] = useState({ email: "", password: "" });
 
-  const validateForm = () => {
-    const emailValidation = validateEmail(formData.email);
-    const passwordValidation = validatePassword(formData.password);
-
-    setErrors({
-      email: emailValidation.error || "",
-      password: passwordValidation.error || "",
-    });
-
-    return emailValidation.isValid && passwordValidation.isValid;
-  };
-
-  const handleBlur = (field: "email" | "password") => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-
-    if (field === "email") {
-      const validation = validateEmail(formData.email);
-      setErrors((prev) => ({ ...prev, email: validation.error || "" }));
-    } else if (field === "password") {
-      const validation = validatePassword(formData.password);
-      setErrors((prev) => ({ ...prev, password: validation.error || "" }));
-    }
-  };
-
-  const handleChange = (field: "email" | "password", value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-
-    if (touched[field]) {
-      if (field === "email") {
-        const validation = validateEmail(value);
-        setErrors((prev) => ({ ...prev, email: validation.error || "" }));
-      } else if (field === "password") {
-        const validation = validatePassword(value);
-        setErrors((prev) => ({ ...prev, password: validation.error || "" }));
-      }
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
+  const onSubmit = async (data: AuthFormValues) => {
     try {
-      await login(formData.email, formData.password);
+      await login(data.email, data.password);
       onSuccess?.();
     } catch (error) {
       console.error("Login failed:", error);
@@ -73,13 +43,12 @@ const LoginForm = ({ onSwitch, onSuccess }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box
         sx={{
           mt: 1,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           gap: 2,
         }}
       >
@@ -87,14 +56,14 @@ const LoginForm = ({ onSwitch, onSuccess }: Props) => {
           fullWidth
           label="Email"
           type="email"
-          variant="outlined"
           size="small"
-          value={formData.email}
-          onChange={(e) => handleChange("email", e.target.value)}
-          onBlur={() => handleBlur("email")}
-          error={touched.email && !!errors.email}
-          helperText={touched.email && errors.email}
           disabled={isLoading}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          {...register("email", {
+            required: "Email is required",
+            validate: (value) => validateEmail(value).error || true,
+          })}
           slotProps={{
             htmlInput: {
               "data-testid": "login-email",
@@ -105,28 +74,24 @@ const LoginForm = ({ onSwitch, onSuccess }: Props) => {
         <TextField
           fullWidth
           label="Password"
-          variant="outlined"
-          size="small"
           type={showPassword ? "text" : "password"}
-          value={formData.password}
-          onChange={(e) => handleChange("password", e.target.value)}
-          onBlur={() => handleBlur("password")}
-          error={touched.password && !!errors.password}
-          helperText={touched.password && errors.password}
+          size="small"
           disabled={isLoading}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          {...register("password", {
+            required: "Password is required",
+            validate: (value) => validatePassword(value).error || true,
+          })}
           slotProps={{
             input: {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     edge="end"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
                     tabIndex={-1}
                     disabled={isLoading}
-                    sx={{ color: "primary.main" }}
+                    onClick={() => setShowPassword((prev) => !prev)}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </IconButton>
