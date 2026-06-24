@@ -31,11 +31,20 @@ public class RegisterUserTests: IDisposable
         driver.FindElement(By.CssSelector("[data-testid='register-confirm-password']")).SendKeys("secretPassword123");
         driver.FindElement(By.CssSelector("[data-testid='register-submit']")).Click();
 
-        wait.Until(d => d.Url.Contains("/dashboard"));
-        Assert.Contains("/dashboard", driver.Url);
+        wait.Until(d =>
+        {
+            var el = d.FindElement(By.CssSelector("[data-testid='login-email']"));
+            
+            Console.WriteLine(el.GetAttribute("outerHTML"));
+            Console.WriteLine($"value = '{el.GetAttribute("value")}'");
+            Console.WriteLine($"text = '{el.Text}'");
 
-        wait.Until(d => !d.FindElement(By.CssSelector("[data-testid='auth-dialog']")).Displayed);
-        Assert.False(driver.FindElement(By.CssSelector("[data-testid='auth-dialog']")).Displayed);
+            return el.GetAttribute("value") == email;
+        });
+
+        var emailInput = driver.FindElement(By.CssSelector("[data-testid='login-email']"));
+        Console.WriteLine(emailInput);
+        Assert.Equal(email, emailInput.GetAttribute("value"));
     }
 
     public void Dispose()
