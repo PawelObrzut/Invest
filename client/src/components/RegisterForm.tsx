@@ -22,7 +22,7 @@ import type { AuthFormValues } from "../types/auth.type";
 type Props = {
   form: UseFormReturn<AuthFormValues>;
   onSwitch: () => void;
-  onSuccess?: (message: string, email: string)  => void;
+  onSuccess?: (email: string)  => void;
 };
 
 const RegisterForm = ({ form, onSwitch, onSuccess }: Props) => {
@@ -47,7 +47,7 @@ const RegisterForm = ({ form, onSwitch, onSuccess }: Props) => {
         data.password
       );
 
-      onSuccess?.(response.message, data.email);
+      onSuccess?.(data.email);
       toast.success(response.message);
     } catch (error) {
       console.error("Registration failed:", error);
