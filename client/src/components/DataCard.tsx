@@ -24,6 +24,7 @@ type DataCardProps = {
 const DataCard = ({
   header,
   value,
+  details,
   children,
   onClick,
   className,
@@ -91,7 +92,6 @@ const DataCard = ({
             )}
 
             {value && (
-
               <Typography
                 variant="h4"
                 sx={{ fontWeight: 700 }}
@@ -100,6 +100,26 @@ const DataCard = ({
               </Typography>
             )}
 
+            {details?.length ? (
+              <Stack spacing={0.5} sx={{ mt: 1 }}>
+                {details.map((detail) => (
+                  <Box key={detail.label}>
+                    <Typography
+                      variant="caption"
+                      sx={{ color: theme.palette.grey[500], display: 'block' }}
+                    >
+                      {detail.label}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: detail.color === 'error' ? theme.palette.error.main : detail.color === 'mint' ? theme.palette.primary.main : theme.palette.text.primary }}
+                    >
+                      {detail.value}
+                    </Typography>
+                  </Box>
+                ))}
+              </Stack>
+            ) : null}
           </Stack>
         )}
       </CardContent>
