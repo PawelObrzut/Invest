@@ -7,7 +7,15 @@ using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Services;
 
+using Invest.Api.Configuration;
+using Invest.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<AlphaVantageOptions>(
+    builder.Configuration.GetSection("AlphaVantage"));
+
+builder.Services.AddHttpClient<IMarketService, AlphaVantageMarketService>();
 
 var connectionString = builder.Configuration.GetConnectionString("PostgreSQL");
 

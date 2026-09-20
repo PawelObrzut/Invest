@@ -1,71 +1,86 @@
-using System.Text.Json;
+using Invest.Api.Models.Market;
+using Invest.Api.Services;
 using server.DTOs;
 
 namespace server.Services;
 
 public class StockService : IStockService
 {
+    private static readonly string[] DefaultSymbols =
+    [
+        "AAPL",
+        "MSFT",
+        "NVDA",
+        "GOOGL"
+    ];
+
+    private readonly IMarketService _marketService;
+
+    public StockService(IMarketService marketService)
+    {
+        _marketService = marketService;
+    }
+
     public async Task<List<StockResponse>> GetQuotesAsync(IEnumerable<string>? symbols = null)
     {
-        var filePath = Path.Combine(AppContext.BaseDirectory, "mock", "quotes.json");
+        var requestedSymbols = symbols?.Where(symbol => !string.IsNullOrWhiteSpace(symbol))
+            .Select(symbol => symbol.Trim().ToUpperInvariant())
+            .Distinct()
+            .ToArray();
 
-        if (!File.Exists(filePath))
-        {
-            throw new FileNotFoundException("Mock quotes file not found.");
-        }
+        var quotes = await _marketService.GetQuotesAsync(requestedSymbols is { Length: > 0 }
+            ? requestedSymbols
+            : DefaultSymbols);
 
-        var json = await File.ReadAllTextAsync(filePath);
-
-        var quotes = JsonSerializer.Deserialize<List<StockResponse>>(
-            json,
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-
-        quotes ??= new List<StockResponse>();
- 
-        if (symbols != null && symbols.Any())
-        {
-            quotes = quotes
-                .Where(q => symbols.Contains(q.Symbol, StringComparer.OrdinalIgnoreCase))
-                .ToList();
-        }
-
-        return quotes;
+        return quotes.Select(MapQuote).ToList();
     }
 
     public async Task<List<StockResponse>> GetStockHistoryAsync(string symbol, TimePeriod period)
     {
-        var filePath = Path.Combine(AppContext.BaseDirectory, "mock", "stock-history.json");
-
-        if (!File.Exists(filePath))
+        var history = await _marketService.GetHistoryAsync(symbol.Trim().ToUpperInvariant());
+        var days = period switch
         {
-            throw new FileNotFoundException("Mock stock history file not found.");
-        }
+            TimePeriod.Day => 1,
+            TimePeriod.Week => 7,
+            TimePeriod.Month => 30,
+            TimePeriod.SixMonths => 180,
+            _ => 7
+        };
 
-        var json = await File.ReadAllTextAsync(filePath);
+        var cutoff = DateTime.UtcNow.Date.AddDays(-days + 1);
 
-        var historyEntries = JsonSerializer.Deserialize<List<StockHistoryEntry>>(
-            json,
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-
-        historyEntries ??= new List<StockHistoryEntry>();
-
-        var match = historyEntries.FirstOrDefault(entry =>
-            string.Equals(entry.Symbol, symbol, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(entry.Period, period.ToString(), StringComparison.OrdinalIgnoreCase));
-
-        return match?.History ?? new List<StockResponse>();
+        return history
+            .Where(entry => DateTime.TryParse(entry.Date, out var date) && date.Date >= cutoff)
+            .Select(entry => MapHistory(symbol, entry))
+            .ToList();
     }
 
-    private sealed class StockHistoryEntry
+    private static StockResponse MapQuote(StockQuoteDto quote)
     {
-        public string Symbol { get; set; } = string.Empty;
-        public string Period { get; set; } = string.Empty;
-        public List<StockResponse> History { get; set; } = new List<StockResponse>();
+        return new StockResponse
+        {
+            Symbol = quote.Symbol,
+            CompanyName = string.IsNullOrWhiteSpace(quote.Name) ? quote.Symbol : quote.Name,
+            Price = quote.Price,
+            Change = quote.Change,
+            ChangePercent = quote.ChangePercent,
+            Currency = "USD"
+        };
+    }
+
+    private static StockResponse MapHistory(string symbol, StockHistoryDto entry)
+    {
+        var change = entry.Close - entry.Open;
+        var changePercent = entry.Open == 0 ? 0 : change / entry.Open * 100;
+
+        return new StockResponse
+        {
+            Symbol = symbol,
+            CompanyName = symbol,
+            Price = entry.Close,
+            Change = change,
+            ChangePercent = changePercent,
+            Currency = "USD"
+        };
     }
 }
